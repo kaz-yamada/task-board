@@ -5,12 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BoardUser extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     public function user()
     {
         return $this->hasOne('App\Models\User', 'id', 'user_id');
+    }
+
+    public function card()
+    {
+        return $this->hasOne('App\Models\Card', 'id', 'card_id');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BoardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,3 +28,11 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/boards', function () {
+    return Inertia::render('Boards');
+})->name('boards');
+
+Route::middleware('auth:sanctum')->get('/boards/all', [BoardController::class, 'boards']);
+Route::middleware('auth:sanctum')->get('/boards/{boardId}', [BoardController::class, 'cardLists']);
+Route::middleware('auth:sanctum')->post('/board', [BoardController::class, 'newBoard']);
