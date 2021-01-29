@@ -1,9 +1,7 @@
 <template>
-  <form @submit.prevent="submit">
-    <div
-      class="w-full mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
-    >
-      <jet-label for="name" value="Create a new board" />
+  <div class="w-full mb-6 px-6 py-4 bg-white shadow-md sm:rounded-lg">
+    <form @submit.prevent="submit">
+      <jet-label for="name" value="Create a new board" class="mt-4" />
       <div class="flex flex-col sm:flex-row">
         <jet-input
           id="name"
@@ -22,11 +20,11 @@
           Create
         </jet-button>
       </div>
-      <jet-action-message :on="form.recentlySuccessful" class="h-4">
+      <jet-action-message :on="form.recentlySuccessful" class="h-4 mt-4">
         Board created.
       </jet-action-message>
-    </div>
-  </form>
+    </form>
+  </div>
 </template>
 
 <script>

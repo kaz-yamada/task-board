@@ -4,13 +4,10 @@
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">Boards</h2>
     </template>
 
-    <div>
-      <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-        <create-board v-on:createdboard="getBoards" />
-        <div v-if="boards.length">
-          <board-list :boards="boards" />
-        </div>
-        <div v-else>Create a board to get started</div>
+    <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <create-board />
+        <board-list :boards="data" />
       </div>
     </div>
   </app-layout>
@@ -27,23 +24,6 @@ export default {
     BoardList,
     CreateBoard,
   },
-  data: function () {
-    return {
-      boards: [],
-    };
-  },
-  methods: {
-    getBoards() {
-      axios
-        .get("/boards/all")
-        .then((res) => {
-          this.boards = res.data;
-        })
-        .catch((err) => console.error(err));
-    },
-  },
-  created() {
-    this.getBoards();
-  },
+  props: ["data"],
 };
 </script>
