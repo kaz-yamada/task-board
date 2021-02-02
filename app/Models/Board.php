@@ -18,4 +18,10 @@ class Board extends Model
     {
         return $this->hasOne('App\Models\User');
     }
+
+    public static function userBoards()
+    {
+        $user_id = auth()->id();
+        return Board::where('user_id', $user_id);
+    }
 }

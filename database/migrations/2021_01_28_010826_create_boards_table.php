@@ -15,8 +15,9 @@ class CreateBoardsTable extends Migration
     {
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->unsignedInteger('board_owner');
+            $table->string("title");
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('team_id')->nullable();
             $table->boolean('is_private')->default(true);
             $table->timestamps();
         });
@@ -43,13 +44,19 @@ class CreateBoardsTable extends Migration
             $table->smallInteger('position')->default(0);
             $table->unsignedInteger('card_owner');
             $table->unsignedInteger('card_list_id');
-            $table->unsignedInteger('label_id');
+            $table->timestamps();
+        });
+
+        Schema::create('card_labels', function (Blueprint $table) {
+            $table->id();
+            $table->string('title')->nullable();
+            $table->unsignedInteger("card_id");
+            $table->unsignedInteger("label_id");
             $table->timestamps();
         });
 
         Schema::create('labels', function (Blueprint $table) {
             $table->id();
-            $table->string("name")->nullable();
             $table->string("color");
             $table->timestamps();
         });

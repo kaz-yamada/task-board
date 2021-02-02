@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\CardListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,10 +26,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/boards', [BoardController::class, 'index'])->name('boards');
-Route::middleware(['auth:sanctum', 'verified'])->get('/boards/{boardId}', [BoardController::class, 'show']);
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/dashboard', [BoardController::class, 'index'])
+    ->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/board/{boardId}', [BoardController::class, 'show'])
+    ->name('board');
 Route::middleware(['auth:sanctum', 'verified'])->post('/board', [BoardController::class, 'store']);
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/board/{boardId}', [CardListController::class, 'store']);

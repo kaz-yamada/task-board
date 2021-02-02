@@ -5,34 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\Board;
 use App\Models\CardList;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
 
 class BoardController extends Controller
 {
     public function index(Request $request)
     {
-        $current_user_id = auth()->id();
-
-        return Inertia::render('Boards', [
-            'data' => Board::all()->where('board_owner', $current_user_id),
-        ]);
-    }
-
-    public function show(Request $request, $boardId)
-    {
-        return CardList::where('board_id', $boardId)
-            ->with('user')
+        $user_id = auth()->id();
+        $data = Board::where('user_id', $user_id)
             ->orderBy('created_at', 'DESC')
             ->get();
+
+        return $this->render('Dashboard', ['data' =>  $data]);
+    }
+
+    public function show($boardId)
+    {
+        $data = [
+            'board' => Board::where('id', $boardId)->first(),
+            'list' => CardList::where('board_id', $boardId)->get()
+        ];
+
+        return $this->render('Board', ['data' => $data]);
     }
 
     public function store(Request $request)
     {
-        $newBoard = new Board;
-        $newBoard->board_owner = Auth::id();
-        $newBoard->name = $request->name;
-        $newBoard->save();
+        // $newBoard = new Board;
+        // $newBoard->user_id = auth()->id();
+        // $newBoard->title = $request->title;
+        // $newBoard->save();
 
         return redirect()->back()
             ->with('message', 'New board created successfully.');
