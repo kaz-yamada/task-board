@@ -19,6 +19,11 @@ class Card extends Model
         return $this->hasOne('App\Models\CardUser', 'id', 'card_owner');
     }
 
+    public function board()
+    {
+        return $this->hasOneThrough(Board::class, CardList::class);
+    }
+
     public function label()
     {
         return $this->hasOne("App\Models\Label", 'id', 'label_id');

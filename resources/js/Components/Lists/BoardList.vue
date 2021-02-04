@@ -1,6 +1,6 @@
 <template>
   <column>
-    <div class="w-full overflow-hidden sm:rounded-lg">
+    <div class="w-full overflow-hidden sm:rounded-lg px-6 py-4">
       <div v-if="!boards">Create a board to get started</div>
       <div
         class="flex justify-start cursor-pointer hover:text-blue-400 hover:bg-blue-100 rounded-md py-2 my-2"

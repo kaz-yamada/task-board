@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Board;
+use App\Models\Card;
 use App\Models\CardList;
 use Illuminate\Http\Request;
 
@@ -10,19 +11,18 @@ class BoardController extends Controller
 {
     public function index(Request $request)
     {
-        $user_id = auth()->id();
-        $data = Board::where('user_id', $user_id)
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
+        $data = Board::userBoards()->orderBy('created_at', 'DESC')->get();
         return $this->render('Dashboard', ['data' =>  $data]);
     }
 
-    public function show($boardId)
+    public function show($id)
     {
+        // TODO: clean this up? Add update and deletion for lists and cards
+
+        $board = Board::find($id);
         $data = [
-            'board' => Board::where('id', $boardId)->first(),
-            'list' => CardList::where('board_id', $boardId)->get()
+            'board' => $board,
+            'lists' => $board->cardLists()->with('cards')->get()
         ];
 
         return $this->render('Board', ['data' => $data]);
@@ -30,12 +30,17 @@ class BoardController extends Controller
 
     public function store(Request $request)
     {
-        // $newBoard = new Board;
-        // $newBoard->user_id = auth()->id();
-        // $newBoard->title = $request->title;
-        // $newBoard->save();
+        $newBoard = new Board;
+        $newBoard->user_id = auth()->id();
+        $newBoard->title = $request->title;
+        $newBoard->save();
 
         return redirect()->back()
             ->with('message', 'New board created successfully.');
+    }
+
+
+    public function destroy($id)
+    {
     }
 }

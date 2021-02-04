@@ -19,9 +19,14 @@ class Board extends Model
         return $this->hasOne('App\Models\User');
     }
 
-    public static function userBoards()
+    public function cards()
+    {
+        return $this->hasManyThrough(Card::class, CardList::class, 'board_id', 'card_list_id', 'id', 'id');
+    }
+
+    public function scopeUserBoards($query)
     {
         $user_id = auth()->id();
-        return Board::where('user_id', $user_id);
+        return $query->where('user_id', $user_id);
     }
 }

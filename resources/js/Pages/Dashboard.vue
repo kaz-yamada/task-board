@@ -15,8 +15,9 @@
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
-import BoardList from "./BoardList";
-import CreateBoard from "./CreateBoard";
+
+import BoardList from "@/Components/Lists/BoardList";
+import CreateBoard from "@/Components/Forms/CreateBoard";
 
 export default {
   components: {

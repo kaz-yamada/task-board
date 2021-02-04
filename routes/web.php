@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\CardListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -38,4 +39,5 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->name('board');
 Route::middleware(['auth:sanctum', 'verified'])->post('/board', [BoardController::class, 'store']);
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/board/{boardId}', [CardListController::class, 'store']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/list', [CardListController::class, 'store']);
+Route::middleware(['auth:sanctum', 'verified'])->post('/card', [CardController::class, 'store']);

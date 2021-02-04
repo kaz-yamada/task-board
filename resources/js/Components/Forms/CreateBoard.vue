@@ -52,7 +52,6 @@ export default {
       this.form.post("board", {
         onFinish: () => {
           this.form.reset();
-          this.$emit("createdboard");
         },
       });
     },
