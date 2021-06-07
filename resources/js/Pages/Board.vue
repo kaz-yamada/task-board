@@ -2,11 +2,12 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Boards > {{ data.board.title }}
+        <inertia-link href="/dashboard">Boards</inertia-link> >
+        <span> {{ data.board.title }} </span>
       </h2>
     </template>
     <div class="py-12 flex-grow flex flex-col overflow-auto" v-if="data">
-      <div class="max-w-7xl mx-auto sm:px-6 px-8 flex flex-row w-full h-full">
+      <div class="max-w-7xl sm:px-6 px-8 flex flex-row w-full h-full">
         <div
           v-for="list in data.lists"
           class="list-wrapper mr-6"
@@ -35,7 +36,9 @@ export default {
     Column,
     CreateCardList,
   },
-  props: ["data"],
+  props: {
+    data: Object,
+  },
 };
 </script>
 

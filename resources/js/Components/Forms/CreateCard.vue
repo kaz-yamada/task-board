@@ -8,7 +8,7 @@
     >
       + Add a new card
     </button>
-    <form @submit.prevent="submit" class="px-6 pb-6">
+    <form @submit.prevent="submit" class="p-3">
       <jet-input
         id="title"
         type="text"
@@ -52,7 +52,10 @@ export default {
     JetInputError,
     JetLabel,
   },
-  props: ["listId", "boardId"],
+  props: {
+    listId: Number,
+    boardId: Number,
+  },
   data() {
     return {
       show: false,

@@ -18,4 +18,8 @@ class CardListController extends Controller
         return redirect()->back()
             ->with('message', 'New list created successfully.');
     }
+
+    public function update($id)
+    {
+    }
 }

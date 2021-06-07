@@ -1,9 +1,14 @@
 <template>
   <div class="w-full">
-    <column>
-      <div class="pt-6">
-        <div class="px-7 font-bold">{{ list.title }}</div>
-        <div class="my-6">
+    <column class="bg-white">
+      <div class="p-4 font-bold flex flex-row items-center">
+        <div class="flex-1">
+          {{ list.title }}
+        </div>
+        <dots-vertical-icon />
+      </div>
+      <div class="">
+        <div class="">
           <template v-for="card in list.cards">
             <card :key="card.id" :data="card" />
           </template>
@@ -15,6 +20,7 @@
 </template>
 
 <script>
+import { DotsVerticalIcon } from "@vue-hero-icons/outline";
 import Column from "@/Components/Column";
 import CreateCard from "@/Components/Forms/CreateCard";
 import Card from "../Card";
@@ -24,7 +30,11 @@ export default {
     Card,
     Column,
     CreateCard,
+    DotsVerticalIcon,
   },
-  props: ["boardId", "list"],
+  props: {
+    boardId: Number,
+    list: Object,
+  },
 };
 </script>

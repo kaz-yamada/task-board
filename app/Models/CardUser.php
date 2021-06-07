@@ -3,19 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class CardUser extends Model
+class CardUser extends Pivot
 {
     use HasFactory;
 
-    public function users()
+    public $incrementing = true;
+
+    public function user()
     {
-        return $this->hasOne('App\Models\User', 'id', 'user_id');
+        return $this->belongsTo('App\Models\User');
     }
 
-    public function cards()
+    public function board()
     {
-        return $this->hasOne('App\Models\Card', 'id', 'card_id');
+        return $this->belongsTo('App\Models\Board');
     }
 }

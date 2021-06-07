@@ -25,6 +25,8 @@ export default {
     BoardList,
     CreateBoard,
   },
-  props: ["data"],
+  props: {
+    data: Array,
+  },
 };
 </script>

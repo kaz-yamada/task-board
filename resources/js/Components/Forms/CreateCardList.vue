@@ -55,7 +55,7 @@ export default {
     JetInputError,
     JetLabel,
   },
-  props: ["id"],
+  props: { id: Number },
   data() {
     return {
       show: false,

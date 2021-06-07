@@ -3,22 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Board;
-use App\Models\Card;
-use App\Models\CardList;
 use Illuminate\Http\Request;
 
 class BoardController extends Controller
 {
     public function index(Request $request)
     {
-        $data = Board::userBoards()->orderBy('created_at', 'DESC')->get();
+        $data = Board::ownedBoards()->orderBy('created_at', 'DESC')->get();
         return $this->render('Dashboard', ['data' =>  $data]);
     }
 
     public function show($id)
     {
-        // TODO: clean this up? Add update and deletion for lists and cards
-
         $board = Board::find($id);
         $data = [
             'board' => $board,
@@ -31,16 +27,22 @@ class BoardController extends Controller
     public function store(Request $request)
     {
         $newBoard = new Board;
-        $newBoard->user_id = auth()->id();
+        $newBoard->board_owner = auth()->id();
         $newBoard->title = $request->title;
         $newBoard->save();
 
         return redirect()->back()
-            ->with('message', 'New board created successfully.');
+            ->with('success', 'New board created successfully.');
     }
 
+    public function update(Request $request, $id)
+    {
+        return redirect()->back()->with('success', 'Board updated successfully');
+    }
 
     public function destroy($id)
     {
+        $board = Board::find($id);
+        $board->delete();
     }
 }

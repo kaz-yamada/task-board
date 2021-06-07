@@ -16,13 +16,13 @@ class CreateBoardsTable extends Migration
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('board_owner');
             $table->unsignedInteger('team_id')->nullable();
             $table->boolean('is_private')->default(true);
             $table->timestamps();
         });
 
-        Schema::create('board_users', function (Blueprint $table) {
+        Schema::create('board_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger("user_id");
             $table->unsignedInteger("board_id");
@@ -47,7 +47,7 @@ class CreateBoardsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('card_labels', function (Blueprint $table) {
+        Schema::create('card_label', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->unsignedInteger("card_id");
@@ -61,7 +61,7 @@ class CreateBoardsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('card_users', function (Blueprint $table) {
+        Schema::create('card_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger("user_id");
             $table->unsignedInteger("card_id");
@@ -84,11 +84,13 @@ class CreateBoardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('card_users');
-        Schema::dropIfExists('labels');
-        Schema::dropIfExists('cards');
-        Schema::dropIfExists('card_lists');
-        Schema::dropIfExists('board_users');
         Schema::dropIfExists('boards');
+        Schema::dropIfExists('board_user');
+        Schema::dropIfExists('card_lists');
+        Schema::dropIfExists('cards');
+        Schema::dropIfExists('labels');
+        Schema::dropIfExists('card_label');
+        Schema::dropIfExists('card_user');
+        Schema::dropIfExists('comments');
     }
 }

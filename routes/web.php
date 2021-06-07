@@ -34,10 +34,13 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/dashboard', [BoardController::class, 'index'])
     ->name('dashboard');
+
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/board/{boardId}', [BoardController::class, 'show'])
     ->name('board');
+
 Route::middleware(['auth:sanctum', 'verified'])->post('/board', [BoardController::class, 'store']);
+Route::middleware(['auth:sanctum', 'verified'])->put('/board', [BoardController::class, 'update']);
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/list', [CardListController::class, 'store']);
 Route::middleware(['auth:sanctum', 'verified'])->post('/card', [CardController::class, 'store']);

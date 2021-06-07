@@ -16,22 +16,22 @@ class Card extends Model
 
     public function cardOwner()
     {
-        return $this->hasOne('App\Models\CardUser', 'id', 'card_owner');
+        return $this->hasOne('App\Models\User', 'id', 'card_owner');
     }
 
     public function board()
     {
-        return $this->hasOneThrough(Board::class, CardList::class);
+        return $this->hasOneThrough('App\Models\Board', 'App\Models\CardList');
     }
 
     public function label()
     {
-        return $this->hasOne("App\Models\Label", 'id', 'label_id');
+        return $this->hasOne('App\Models\Label', 'id', 'label_id');
     }
 
-    public function cardUsers()
+    public function users()
     {
-        return $this->hasMany('App\Models\CardUser');
+        return $this->belongsToMany('App\Models\User')->using('App\Models\CardUser');
     }
 
     public function comments()

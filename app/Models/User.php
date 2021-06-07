@@ -58,4 +58,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function cards()
+    {
+        return $this->belongsToMany('App\Models\Card')->using('App\Models\CardUser');
+    }
+
+    public function boards()
+    {
+        return $this->belongsToMany('App\Models\Board')->using('App\Models\BoardUser');
+    }
 }

@@ -16,17 +16,22 @@ class Board extends Model
 
     public function boardOwner()
     {
-        return $this->hasOne('App\Models\User');
+        return $this->hasOne('App\Models\User', 'id', 'card_owner');
     }
 
     public function cards()
     {
-        return $this->hasManyThrough(Card::class, CardList::class, 'board_id', 'card_list_id', 'id', 'id');
+        return $this->hasManyThrough('App\Models\Card', 'App\Models\CardList', 'board_id', 'card_list_id', 'id', 'id');
     }
 
-    public function scopeUserBoards($query)
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User')->using('App\Models\BoardUser');
+    }
+
+    public function scopeOwnedBoards($query)
     {
         $user_id = auth()->id();
-        return $query->where('user_id', $user_id);
+        return $query->where('board_owner', $user_id);
     }
 }
